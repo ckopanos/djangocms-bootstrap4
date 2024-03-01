@@ -1,7 +1,7 @@
 from django.template import TemplateDoesNotExist
 from django.template.loader import select_template
 from django.utils.functional import lazy
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 
 def concat_classes(classes):
@@ -28,10 +28,10 @@ def get_plugin_template(instance, prefix, name, templates):
     return template_path
 
 
-# use mark_safe_lazy to delay the translation when using mark_safe
+# use mark_safe_lazy to delay the translation when using format_html
 # otherwise they will not be added to /locale/
 # https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#other-uses-of-lazy-in-delayed-translations
-mark_safe_lazy = lazy(mark_safe, str)
+mark_safe_lazy = lazy(format_html, str)
 
 
 # get first element of "choices" (can be nested)
